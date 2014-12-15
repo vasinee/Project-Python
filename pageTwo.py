@@ -1,5 +1,6 @@
 import Tkinter as tk
 import tkMessageBox
+
 class PageTwo(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
@@ -7,10 +8,12 @@ class PageTwo(tk.Tk):
         t.pack(side="top", fill="x")
         check = tk.Button(self, text= "check",command=lambda: t.checkButton())
         check.pack(pady = 5)
-        t.set(0,3,"3"), t.set(0,4,"1"), t.set(0,5,"5"), t.set(0,6,"1"), t.set(0,7,"3")
-        t.set(1,0,"1"), t.set(2,0,"1 "), t.set(3,0,"1"), t.set(4,2,"3"), t.set(5,2,"1")
-        t.set(1,1,"1"), t.set(1,2,"1"),t.set(2,1,"1"),t.set(2,2,"1")
-        t.set(3,2,"1"), t.set(3,1,"1")
+        dic2 ={1:[0,3,"3"], 2:[0,4,"1"], 3:[0,5,"5"], 4:[0,6,"1"], 5:[0,7,"3"],
+               6:[1,0,"1"], 7:[2,0,"1 "], 8:[3,0,"1"], 9:[4,2,"3"], 10:[5,2,"1"],
+               11:[1,1,"1"], 12:[1,2,"1"], 13:[2,1,"1"], 14:[2,2,"1"],
+               15:[3,2,"1"], 16:[3,1,"1"]}
+        for i in dic2:
+               t.set(dic2[i][0], dic2[i][1], dic2[i][2])
         
   
 class Button_Table(tk.Frame):
