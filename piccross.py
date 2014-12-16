@@ -1,6 +1,6 @@
 import Tkinter as tk
 import tkMessageBox
-TITLE_FONT = ("Quark", 20, "bold")
+TITLE_FONT = ("Quark", 28, "bold")
 
     ################
     ## main Frame ##
@@ -10,7 +10,7 @@ class GameApp(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         tk.Tk.wm_title(self, 'HANJIE')
-        tk.Tk.wm_geometry(self, "500x550")
+        tk.Tk.wm_geometry(self, "500x500")
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
         # will be raised above the others
@@ -20,7 +20,7 @@ class GameApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (StartPage, PageOne, PageTwo):
+        for F in (StartPage, PageOne, PageTwo, Page3, Page4, Page5, Page6):
             frame = F(container, self)
             self.frames[F] = frame
             # put all of the pages in the same location; 
@@ -39,57 +39,53 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent) 
         label = tk.Label(self, text="HANJIE", font=TITLE_FONT)
-        label2 = tk.Label(self, text="PAINT BY NUMBER", font=("Quark" , 16))
-        label.pack(side="top", fill="x", pady=7)
+        label2 = tk.Label(self, text="PAINT BY NUMBER", font=("Quark" , 20))
+        label.pack(side="top", fill="x", pady=17)
         label2.pack()
 
         ########################
         ## Button change page ##
         ########################
 
-        button1 = tk.Button(self, text="Puzzle 001 (5x5)", width=30, height=2,
+        button1 = tk.Button(self, text="Puzzle 001 (5 x 5)", width=30, height=2,
                             command=lambda: controller.show_frame(PageOne))
-        button2 = tk.Button(self, text="Puzzle 002 (5x5)", width=30, height=2,
+        button2 = tk.Button(self, text="Puzzle 002 (5 x 5)", width=30, height=2,
                             command=lambda: controller.show_frame(PageTwo))
-        button3 = tk.Button(self, text="Puzzle 003 (5x5)", width=30, height=2,
+        button3 = tk.Button(self, text="Puzzle 003 (5 x 5)", width=30, height=2,
                             command=lambda: controller.show_frame(Page3))
-        button4 = tk.Button(self, text="Puzzle 004 (5x5)", width=30, height=2,
+        button4 = tk.Button(self, text="Puzzle 004 (10 x 10)", width=30, height=2,
                             command=lambda: controller.show_frame(Page4))
-        button5 = tk.Button(self, text="Puzzle 005 (5x5)", width=30, height=2,
+        button5 = tk.Button(self, text="Puzzle 005 (10 x 10)", width=30, height=2,
                             command=lambda: controller.show_frame(Page5))
-        button6 = tk.Button(self, text="Puzzle 006 (5x5)", width=30, height=2,
+        button6 = tk.Button(self, text="Puzzle 006 (10 x 10)", width=30, height=2,
                             command=lambda: controller.show_frame(Page6))
-        button7 = tk.Button(self, text="Puzzle 007 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page7))
-        button8 = tk.Button(self, text="Puzzle 008 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page8))
-        button9 = tk.Button(self, text="Puzzle 009 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page9))
-        button = [button1, button2, button3, button4, button5, button6,
-                  button7, button8, button9]
+        button = [button1, button2, button3, button4, button5, button6]
         for k in button:
-            k.pack(pady = 4)
+            k.pack(pady = 5)
 
-       
+        ########################
+        ##      Page One      ##
+        ########################
+    
 class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Puzzle 001", font=TITLE_FONT)
-        label.pack(side="top", fill="x", pady=7)     
-        t = Button_Table(self, 7, 7)
-        t.pack(side="top", fill="x")
-        check = tk.Button(self, text= "CHECK", command=lambda: t.checkButton())
-        check.pack(pady = 5)
-        home = tk.Button(self, text="HOME", command=lambda: controller.show_frame(StartPage))
-        home.pack()
+        label.pack(side="top", fill="x", pady=15)     
+        t = Button_Table1(self, 7, 7)
+        t.pack(side="top")
+        check = tk.Button(self, text= "CHECK",width=8, height=2, command=lambda: t.checkButton())
+        home = tk.Button(self, text="HOME",width=8, height=2, command=lambda: controller.show_frame(StartPage))
+        check.pack(side='left', padx = 120, pady = 10)
+        home.pack(side='left',fill="x", pady = 10)
         dic ={1:[0,2,"1"], 2:[0,4,"1"], 3:[0,6,"1"], 4:[1,2,"1"], 5:[1,3,"5"],
                6:[1,4,"1"], 7:[1,5,"5"], 8:[1,6,"1"], 9:[2,0,"1"], 10:[4,0,"1"],
                11:[6,0,"1"], 12:[2,1,"1"], 13:[3,1,"5"], 14:[4,1,"1"],
                15:[5,1,"5"], 16:[6,1,"1"]}
         for i in dic:
                t.set(dic[i][0], dic[i][1], dic[i][2])
- 
-class Button_Table(tk.Frame):
+               
+class Button_Table1(tk.Frame):
     def __init__(self, parent, rows, columns):
         # form grid lines
         tk.Frame.__init__(self, parent)
@@ -99,11 +95,11 @@ class Button_Table(tk.Frame):
             current_row = []
             for column in range(columns):
                 if row == 0 or row == 1 or column == 1 or column == 0:
-                    label = tk.Label(self,width=6, height=3, bg= "#ffffff")
+                    label = tk.Label(self, width=4, height=2, bg= "#ffffff")
                     label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
                     current_row.append(label)
                 else:
-                    button = tk.Button(self, width=6, height=3,command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                    button = tk.Button(self, width=4, height=2,command=lambda a=row,b=column: self.onButtonPressed(a,b))
                     button.grid(row=row, column=column, sticky="nsew")
                     current_row.append(button)
             self._widgets.append(current_row)           
@@ -134,17 +130,21 @@ class Button_Table(tk.Frame):
                 checkAns = "Incorrect"
         tkMessageBox.showinfo("", checkAns)
 
+        ########################
+        ##      Page Two      ##
+        ########################
+
 class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Puzzle 002", font=TITLE_FONT)
-        label.pack(side="top", fill="x", pady=7)     
-        t = Button_Table(self, 6, 8)
-        t.pack(side="top", fill="x")
-        check = tk.Button(self, text= "CHECK", command=lambda: t.checkButton())
-        check.pack(pady = 5)
-        home = tk.Button(self, text="HOME", command=lambda: controller.show_frame(StartPage))
-        home.pack()
+        label.pack(side="top", pady = 15)     
+        t = Button_Table2(self, 6, 8)
+        t.pack(side="top")
+        check = tk.Button(self, text= "CHECK",width=8, height=2, command=lambda: t.checkButton())
+        home = tk.Button(self, text="HOME",width=8, height=2, command=lambda: controller.show_frame(StartPage))
+        check.pack(side='left', padx = 120, pady = 10)
+        home.pack(side='left',fill="x", pady = 10)
         dic ={1:[0,3,"3"], 2:[0,4,"1"], 3:[0,5,"5"], 4:[0,6,"1"], 5:[0,7,"3"],
                6:[1,0,"1"], 7:[2,0,"1 "], 8:[3,0,"1"], 9:[4,2,"3"], 10:[5,2,"1"],
                11:[1,1,"1"], 12:[1,2,"1"], 13:[2,1,"1"], 14:[2,2,"1"],
@@ -152,7 +152,7 @@ class PageTwo(tk.Frame):
         for i in dic:
                t.set(dic[i][0], dic[i][1], dic[i][2])
         
-class Button_Table(tk.Frame):
+class Button_Table2(tk.Frame):
     def __init__(self, parent, rows, columns):
         # form grid lines
         tk.Frame.__init__(self, parent)
@@ -161,11 +161,11 @@ class Button_Table(tk.Frame):
             current_row = []
             for column in range(columns):
                 if row == 0 or column == 0 or column == 1 or column == 2:
-                    label = tk.Label(self,width=8, height=4, bg= "#ffffff")
+                    label = tk.Label(self,width=4, height=2, bg= "#ffffff")
                     label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
                     current_row.append(label)
                 else:
-                    button = tk.Button(self, width=8, height=4,command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                    button = tk.Button(self, width=4, height=2,command=lambda a=row,b=column: self.onButtonPressed(a,b))
                     button.grid(row=row, column=column, sticky="nsew")
                     current_row.append(button)
             self._widgets.append(current_row)           
@@ -193,6 +193,301 @@ class Button_Table(tk.Frame):
             else:
                 checkAns = "Incorrect"
         tkMessageBox.showinfo("", checkAns)
+
+        ########################
+        ##      Page Three    ##
+        ########################
+
+class Page3(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Puzzle 003", font=TITLE_FONT)
+        label.pack(side="top", fill="x", pady=15)     
+        t = Button_Table3(self, 7, 7)
+        t.pack(side="top")
+        check = tk.Button(self, text= "CHECK",width=8, height=2, command=lambda: t.checkButton())
+        home = tk.Button(self, text="HOME",width=8, height=2, command=lambda: controller.show_frame(StartPage))
+        check.pack(side='left', padx = 120, pady = 10)
+        home.pack(side='left',fill="x", pady = 10)
+        dic ={1:[0,2,"2"], 2:[0,3,"2"], 3:[0,5,"2"], 4:[0,6,"2"], 5:[1,2,"1"],
+               6:[1,3,"1"], 7:[1,4,"1"], 8:[1,5,"1"], 9:[1,6,"1"], 10:[2,0,"2"],
+               11:[3,0,"2"], 12:[5,0,"1"], 13:[2,1,"2"], 14:[3,1,"2"], 15:[5,1,"1"],16:[6,1,"3"]}
+        for i in dic:
+               t.set(dic[i][0], dic[i][1], dic[i][2])
+ 
+class Button_Table3(tk.Frame):
+    def __init__(self, parent, rows, columns):
+        # form grid lines
+        tk.Frame.__init__(self, parent)
+         
+        self._widgets = []
+        for row in range(rows):
+            current_row = []
+            for column in range(columns):
+                if row == 0 or row == 1  or column == 1 or column == 0:
+                    label = tk.Label(self, width=4, height=2, bg= "#ffffff")
+                    label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+                    current_row.append(label)
+                else:
+                    button = tk.Button(self, width=4, height=2, command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                    button.grid(row=row, column=column, sticky="nsew")
+                    current_row.append(button)
+            self._widgets.append(current_row)           
+
+        for column in range(columns):
+            self.grid_columnconfigure(column, weight=5)
+        
+    def onButtonPressed(self, row, column):
+        if self._widgets[row][column]['bg'] == "red":
+            self._widgets[row][column]['bg'] = "black"
+        else:
+            self._widgets[row][column]['bg'] = "red"
+
+    def set(self, row, column, value):
+        widget = self._widgets[row][column]
+        widget.configure(text=value)
+
+    def checkButton (self):
+        """check button background is black"""
+        dButton = {1:[2,2], 2:[2,3], 3:[2,5], 4:[2,6], 5:[3,2], 6:[3,3],
+                   7:[3,5], 8:[3,6], 9:[5,3], 10:[5,6], 11:[6,4], 12:[6,5], 13:[6,6]}
+        
+        for i in dButton:
+            if self._widgets[dButton[i][0]][dButton[i][1]]['bg']== "black":
+                checkAns = "Correct"
+            else:
+                checkAns = "Incorrect"
+        tkMessageBox.showinfo("", checkAns)
+
+        ########################
+        ##      Page Four     ##
+        ########################
+
+class Page4(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Puzzle 004", font=TITLE_FONT)
+        label.pack(side="top", fill="x", pady=15)     
+        t = Button_Table4(self, 13, 13)
+        t.pack(side="top")
+        check = tk.Button(self, text= "CHECK",width=8, height=2, command=lambda: t.checkButton())
+        home = tk.Button(self, text="HOME",width=8, height=2, command=lambda: controller.show_frame(StartPage))
+        check.pack(side='left', padx = 120, pady = 10)
+        home.pack(side='left',fill="x", pady = 10)
+        dic ={1:[0,4,"1"], 2:[0,10,"1"], 3:[1,4,"1"], 4:[1,5,"1"], 5:[1,6,"3"],
+               6:[1,4,"1"], 7:[1,5,"1"], 8:[1,6,"3"], 9:[1,7,"1"], 10:[1,8,"1"],
+               11:[1,9,"2"], 12:[1,10,"1"], 13:[1,11,"2"], 14:[2,3,"7"],
+               15:[2,4,"4"], 16:[2,5,"7"], 17:[2,6,"2"], 18:[2,7,"1"], 19:[2,8,"1"],
+               20:[2,9,"1"], 21:[2,10,"1"], 22:[2,11,"3"], 23:[2,12,"7"], 24:[6,0,"1"],
+               25:[8,0,"1"], 26:[3,1,"1"], 27:[4,1,"1"], 28:[6,1,"2"], 29:[7,1,"3"],
+               30:[8,1,"1"], 31:[9,1,"3"], 32:[10,1,"4"], 33:[12,1,"1"], 34:[3,2,"1"],
+               35:[4,2,"1"], 36:[5,2,"10"], 37:[6,2,"2"], 38:[7,2,"1"],
+               39:[8,2,"1"], 40:[9,2,"1"], 41:[10,2,"2"], 42:[11,2,"10"], 43:[12,2,"1"]}
+        for i in dic:
+               t.set(dic[i][0], dic[i][1], dic[i][2])
+ 
+class Button_Table4(tk.Frame):
+    def __init__(self, parent, rows, columns):
+        # form grid lines
+        tk.Frame.__init__(self, parent)
+         
+        self._widgets = []
+        for row in range(rows):
+            current_row = []
+            for column in range(columns):
+                if row == 0 or row == 1 or row == 2 or column == 1 or column == 0 or column == 2:
+                    label = tk.Label(self, width=2, height=1, bg= "#ffffff")
+                    label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+                    current_row.append(label)
+                else:
+                    button = tk.Button(self, width=2, height=1, command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                    button.grid(row=row, column=column, sticky="nsew")
+                    current_row.append(button)
+            self._widgets.append(current_row)           
+
+        for column in range(columns):
+            self.grid_columnconfigure(column, weight=5)
+        
+    def onButtonPressed(self, row, column):
+        if self._widgets[row][column]['bg'] == "red":
+            self._widgets[row][column]['bg'] = "black"
+        else:
+            self._widgets[row][column]['bg'] = "red"
+
+    def set(self, row, column, value):
+        widget = self._widgets[row][column]
+        widget.configure(text=value)
+
+    def checkButton (self):
+        """check button background is black"""
+        dButton = {1:[3,5], 2:[3,10], 3:[4,6], 4:[4,9], 5:[5,3], 6:[5,4],
+                   7:[5,5], 8:[5,6], 9:[5,7], 10:[5,8], 11:[5,9], 12:[5,10], 13:[5,11],
+                   14:[5,12], 15:[6,3], 16:[6,5], 17:[6,6], 18:[6,11], 19:[6,12],
+                   20:[7,3], 21:[7,4], 22:[7,5], 23:[7,12], 24:[8,3], 25:[8,5], 26:[8,12],
+                   27:[9,3], 28:[9,4], 29:[9,5], 30:[9,12], 31:[10,3], 32:[10,4], 33:[10,5],
+                   34:[10,6], 35:[10,11], 36:[10,12], 37:[11,3], 38:[11,4], 39:[11,5],
+                   40:[11,6], 41:[11,7], 42:[11,8], 43:[11,9], 44:[11,10], 45:[11,11],
+                   46:[11,12], 47:[12,4], 46:[12,11]}
+        
+        for i in dButton:
+            if self._widgets[dButton[i][0]][dButton[i][1]]['bg']== "black":
+                checkAns = "Correct"
+            else:
+                checkAns = "Incorrect"
+        tkMessageBox.showinfo("", checkAns)
+
+        ########################
+        ##      Page Five     ##
+        ########################
+
+class Page5(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Puzzle 005", font=TITLE_FONT)
+        label.pack(side="top", fill="x", pady=15)     
+        t = Button_Table5(self, 13, 13)
+        t.pack(side="top")
+        check = tk.Button(self, text= "CHECK",width=8, height=2, command=lambda: t.checkButton())
+        home = tk.Button(self, text="HOME",width=8, height=2, command=lambda: controller.show_frame(StartPage))
+        check.pack(side='left', padx = 120, pady = 10)
+        home.pack(side='left',fill="x", pady = 10)
+        dic ={1:[0,11,"1"], 2:[1,4,"5"], 3:[1,5,"2"], 4:[1,6,"1"], 5:[1,7,"2"],
+               6:[1,9,"2"], 7:[1,10,"5"], 8:[1,11,"1"], 9:[1,12,"2"], 10:[2,3,"1"],
+               11:[2,4,"1"], 12:[2,5,"7"], 13:[2,6,"4"], 14:[2,7,"7"],
+               15:[2,8,"7"], 16:[2,9,"7"], 17:[2,10,"1"], 18:[2,11,"1"], 19:[2,12,"1"],
+               20:[3,0,"1"], 21:[4,0,"1"], 22:[8,0,"2"], 23:[11,0,"1"], 24:[3,1,"1"],
+               25:[4,1,"1"], 26:[7,1,"2"], 27:[8,1,"4"], 28:[11,1,"5"], 29:[3,2,"1"],
+               30:[4,2,"1"], 31:[6,2,"7"], 32:[7,2,"6"], 33:[8,2,"1"], 34:[9,2,"8"],
+               35:[10,2,"7"], 36:[11,2,"1"], 37:[12,2,"8"]}
+        for i in dic:
+               t.set(dic[i][0], dic[i][1], dic[i][2])
+ 
+class Button_Table5(tk.Frame):
+    def __init__(self, parent, rows, columns):
+        # form grid lines
+        tk.Frame.__init__(self, parent)
+         
+        self._widgets = []
+        for row in range(rows):
+            current_row = []
+            for column in range(columns):
+                if row == 0 or row == 1 or row == 2 or column == 1 or column == 0 or column == 2:
+                    label = tk.Label(self, width=2, height=1, bg= "#ffffff")
+                    label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+                    current_row.append(label)
+                else:
+                    button = tk.Button(self, width=2, height=1, command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                    button.grid(row=row, column=column, sticky="nsew")
+                    current_row.append(button)
+            self._widgets.append(current_row)           
+
+        for column in range(columns):
+            self.grid_columnconfigure(column, weight=5)
+        
+    def onButtonPressed(self, row, column):
+        if self._widgets[row][column]['bg'] == "red":
+            self._widgets[row][column]['bg'] = "black"
+        else:
+            self._widgets[row][column]['bg'] = "red"
+
+    def set(self, row, column, value):
+        widget = self._widgets[row][column]
+        widget.configure(text=value)
+
+    def checkButton (self):
+        """check button background is black"""
+        dButton = {1:[3,5], 2:[3,7], 3:[4,9], 4:[4,5], 5:[4,7], 6:[4,4],
+                   7:[6,4], 8:[6,5], 9:[6,6], 10:[6,7], 11:[6,8], 12:[6,9], 13:[6,10],
+                   14:[7,4], 15:[7,5], 16:[7,7], 17:[7,8], 18:[7,9], 19:[7,10],
+                   20:[7,11], 21:[7,12], 22:[8,4], 23:[8,5], 24:[8,7], 25:[8,8], 26:[8,9],
+                   27:[8,10], 28:[8,12], 29:[9,4], 30:[9,5], 31:[9,6], 32:[9,7], 33:[9,8],
+                   34:[9,9], 35:[9,10], 36:[9,11], 37:[10,4], 38:[10,5], 39:[10,6],
+                   40:[10,7], 41:[10,8], 42:[10,9], 43:[10,10], 44:[11,3], 45:[11,5],
+                   46:[11,6], 47:[11,7], 46:[11,8], 47:[11,9], 48:[11,12], 49:[12,4],
+                   50:[12,5], 51:[12,6], 52:[12,7], 53:[12,8], 54:[12,9], 55:[12,10], 55:[12,11]}
+        
+        for i in dButton:
+            if self._widgets[dButton[i][0]][dButton[i][1]]['bg'] == "black":
+                checkAns = "Correct"
+            else:
+                checkAns = "Incorrect"
+        tkMessageBox.showinfo("", checkAns)
+
+        ########################
+        ##      Page Six      ##
+        ########################
+
+class Page6(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Puzzle 005", font=TITLE_FONT)
+        label.pack(side="top", fill="x", pady=15)     
+        t = Button_Table6(self, 14, 14)
+        t.pack(side="top")
+        check = tk.Button(self, text= "CHECK",width=8, height=2, command=lambda: t.checkButton())
+        home = tk.Button(self, text="HOME",width=8, height=2, command=lambda: controller.show_frame(StartPage))
+        check.pack(side='left', padx = 120, pady = 10)
+        home.pack(side='left',fill="x", pady = 10)
+        dic ={1:[0,8,"2"], 2:[1,7,"1"], 3:[1,8,"1"], 4:[2,7,"1"], 5:[2,8,"1"],
+               6:[2,9,"6"], 7:[2,11,"1"], 8:[2,12,"1"], 9:[2,13,"1"], 10:[3,4,"1"],
+               11:[3,5,"1"], 12:[3,6,"3"], 13:[3,7,"2"], 14:[3,8,"1"], 15:[3,9,"1"],
+               16:[3,10,"8"], 17:[3,11,"2"], 18:[3,12,"1"], 19:[3,13,"1"], 20:[11,0,"1"],
+               21:[11,1,"1"], 22:[10,2,"1"], 23:[11,2,"1"], 24:[13,2,"2"], 25:[4,3,"2"],
+               26:[5,3,"2"], 27:[6,3,"5"], 28:[7,3,"4"], 29:[8,3,"2"], 30:[9,3,"3"],
+               31:[10,3,"1"], 32:[11,3,"1"], 33:[12,3,"8"], 34:[13,3,"2"]}
+        for i in dic:
+               t.set(dic[i][0], dic[i][1], dic[i][2])
+ 
+class Button_Table6(tk.Frame):
+    def __init__(self, parent, rows, columns):
+        # form grid lines
+        tk.Frame.__init__(self, parent)
+         
+        self._widgets = []
+        for row in range(rows):
+            current_row = []
+            for column in range(columns):
+                if row == 0 or row == 1 or row == 2 or row == 3  \
+                   or column == 1 or column == 0 or column == 2 or column == 3 :
+                    label = tk.Label(self, width=2, height=1, bg= "#ffffff")
+                    label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+                    current_row.append(label)
+                else:
+                    button = tk.Button(self, width=2, height=1, command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                    button.grid(row=row, column=column, sticky="nsew")
+                    current_row.append(button)
+            self._widgets.append(current_row)           
+
+        for column in range(columns):
+            self.grid_columnconfigure(column, weight=5)
+        
+    def onButtonPressed(self, row, column):
+        if self._widgets[row][column]['bg'] == "red":
+            self._widgets[row][column]['bg'] = "black"
+        else:
+            self._widgets[row][column]['bg'] = "red"
+
+    def set(self, row, column, value):
+        widget = self._widgets[row][column]
+        widget.configure(text=value)
+
+    def checkButton (self):
+        """check button background is black"""
+        dButton = {1:[4,8], 2:[4,9], 3:[5,8], 4:[5,9], 5:[6,9], 6:[6,10],
+                   7:[6,11], 8:[6,12], 9:[6,13], 10:[7,7], 11:[7,8], 12:[7,9], 13:[7,10],
+                   14:[8,9], 15:[8,10], 16:[9,8], 17:[9,9], 18:[9,10], 19:[10,7],
+                   20:[10,10], 21:[11,4], 22:[11,6], 23:[11,10], 24:[11,13], 25:[12,5], 26:[12,6],
+                   27:[12,7], 28:[12,8], 29:[12,9], 30:[12,10], 31:[12,11], 32:[12,12], 33:[13,6],
+                   34:[13,7], 35:[13,10], 36:[13,11]}
+        
+        for i in dButton:
+            if self._widgets[dButton[i][0]][dButton[i][1]]['bg'] == "black":
+                checkAns = "Correct"
+            else:
+                checkAns = "Incorrect"
+        tkMessageBox.showinfo("", checkAns)
+
+
 
 if __name__ == "__main__":
     app = GameApp()
