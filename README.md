@@ -3,12 +3,12 @@ Project-Python
 
 Project Python (TK Inter)
 
-########### HANJIE #############
+>>>>>>>>> HANJIE <<<<<<<<<<<
 
 Hanjie is fun puzzle, where correctly solving the puzzle will reveal a hidden picture.
 
-##### How to play HANJIE ####
---> Open game's windows.
+>>>>> How to play HANJIE <<<<<<
+--> Open game's windows. \n
 --> Select which stage you want to play.
 --> A row or column with a single number clue such as "4" means that there are 4 consecutive shaded squares 
     and that the rest of the row/column is empty. 
