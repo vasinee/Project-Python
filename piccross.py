@@ -63,17 +63,26 @@ class Button_Table(tk.Frame):
         for row in range(rows):
             current_row = []
             for column in range(columns):
-                if row in label_set or column in label_set :
-                    label = tk.Label(self, width=2, height=1, bg= "#ffffff")
-                    label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
-                    current_row.append(label)
+                if len(label_set) < 4:
+                    if row in label_set or column in label_set :
+                        label = tk.Label(self, width=4, height=2, bg= "#ffffff")
+                        label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+                        current_row.append(label)
+                    else:
+                        button = tk.Button(self, width=4, height=2,command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                        button.grid(row=row, column=column, sticky="nsew")
+                        current_row.append(button)
                 else:
-                    button = tk.Button(self, width=2, height=1,command=lambda a=row,b=column: self.onButtonPressed(a,b))
-                    button.grid(row=row, column=column, sticky="nsew")
-                    current_row.append(button)
+                    if row in label_set or column in label_set :
+                        label = tk.Label(self, width=2, height=1, bg= "#ffffff")
+                        label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
+                        current_row.append(label)
+                    else:
+                        button = tk.Button(self, width=2, height=1,command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                        button.grid(row=row, column=column, sticky="nsew")
+                        current_row.append(button)
             self._widgets.append(current_row)           
-        for column in range(columns):
-            self.grid_columnconfigure(column, weight=5)
+        
 
     def reset (self):
         '''reset button bg'''
@@ -83,7 +92,7 @@ class Button_Table(tk.Frame):
                 b['bg'] = "#f0f0f0"
         
     def onButtonPressed(self, row, column):
-        '''chang botton bg color'''
+        '''change button bg color'''
         if self._widgets[row][column]['bg'] == "red":
             self._widgets[row][column]['bg'] = "black"
         else:
@@ -173,7 +182,7 @@ class PageTwo(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton, 8,8))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -206,7 +215,7 @@ class Page3(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton, 7, 7))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -240,7 +249,7 @@ class Page4(tk.Frame):
                    40:[11,6], 41:[11,7], 42:[11,8], 43:[11,9], 44:[11,10], 45:[11,11],
                    46:[11,12], 47:[12,4], 46:[12,11]}
 
-        label_set = [0,1,2]
+        label_set = [0,0,1,2]
 
         label = tk.Label(self, text="Puzzle 004", font=TITLE_FONT)
         label.pack(side="top", fill="x", pady=13)
@@ -250,7 +259,7 @@ class Page4(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton, 13, 13))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -284,7 +293,7 @@ class Page5(tk.Frame):
                    46:[11,6], 47:[11,7], 46:[11,8], 47:[11,9], 48:[11,12], 49:[12,4],
                    50:[12,5], 51:[12,6], 52:[12,7], 53:[12,8], 54:[12,9], 55:[12,10], 55:[12,11]}
 
-        label_set = [0,1,2]
+        label_set = [0,0,1,2]
 
         label = tk.Label(self, text="Puzzle 005", font=TITLE_FONT)
         label.pack(side="top", fill="x", pady=13)
@@ -294,7 +303,7 @@ class Page5(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton,13,13))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -334,7 +343,7 @@ class Page6(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton,14,14))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
