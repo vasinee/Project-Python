@@ -9,7 +9,7 @@ Hanjie is fun puzzle, where correctly solving the puzzle will reveal a hidden pi
 
 ----- How to play HANJIE -----
 
---> Open game's windows. 
+ Open game's windows. 
 --> Select which stage you want to play.
 --> A row or column with a single number clue such as "4" means that there are 4 consecutive shaded squares 
     and that the rest of the row/column is empty. 
