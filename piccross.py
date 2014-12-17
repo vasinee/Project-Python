@@ -1,6 +1,6 @@
 import Tkinter as tk
 import tkMessageBox
-TITLE_FONT = ("Quark", 20, "bold")
+TITLE_FONT = ("Quark", 28, "bold")
 
     ######################
     ##   main Frame     ##
@@ -10,9 +10,9 @@ class GameApp(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         tk.Tk.wm_title(self, 'HANJIE')
-        tk.Tk.wm_geometry(self, "500x550")
-        # the container is where we'll stack a bunch of frames
-        # on top of each other, then the one we want visible
+        tk.Tk.wm_geometry(self, "500x500")
+        # the container where we'll stack a bunch of frames
+        # on top of each other, the one that we want it to be visible
         # will be raised above the others
         container = tk.Frame(self)
         container.pack(side = "top", fill = "both", expand = True)
@@ -20,10 +20,10 @@ class GameApp(tk.Tk):
         container.grid_columnconfigure(0, weight = 1)
 
         self.frames = {}
-        for F in (StartPage, PageOne, PageTwo):
+        for F in (StartPage, PageOne, PageTwo, Page3, Page4, Page5, Page6):
             frame = F(container, self)
             self.frames[F] = frame
-            # put all of the pages in the same location; 
+            # put all pages in the same location; 
             frame.grid(row = 0, column = 0, sticky="nsew")
         self.show_frame(StartPage)
 
@@ -39,7 +39,6 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         
         label = tk.Label(self, text="HANJIE", font=TITLE_FONT)
-<<<<<<< HEAD
         label2 = tk.Label(self, text = "PAINT BY NUMBER", font = ("Quark" , 20))
         label.pack(side = "top", fill = "x", pady = 17)
         label2.pack()
@@ -58,96 +57,23 @@ class StartPage(tk.Frame):
             
 class Button_Table(tk.Frame):
     def __init__(self, parent, rows, columns, dButton, label_set):
-=======
-        label2 = tk.Label(self, text="PAINT BY NUMBER", font=("Quark" , 16))
-        label.pack(side="top", fill="x", pady=7)
-        label2.pack()
-
-        ########################
-        ## Button change page ##
-        ########################
-
-        button1 = tk.Button(self, text="Puzzle 001 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(PageOne))
-        button2 = tk.Button(self, text="Puzzle 002 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(PageTwo))
-        button3 = tk.Button(self, text="Puzzle 003 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page3))
-        button4 = tk.Button(self, text="Puzzle 004 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page4))
-        button5 = tk.Button(self, text="Puzzle 005 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page5))
-        button6 = tk.Button(self, text="Puzzle 006 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page6))
-        button7 = tk.Button(self, text="Puzzle 007 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page7))
-        button8 = tk.Button(self, text="Puzzle 008 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page8))
-        button9 = tk.Button(self, text="Puzzle 009 (5x5)", width=30, height=2,
-                            command=lambda: controller.show_frame(Page9))
-        button = [button1, button2, button3, button4, button5, button6,
-                  button7, button8, button9]
-        for k in button:
-            k.pack(pady = 4)
-
-       
-class PageOne(tk.Frame):
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Puzzle 001", font=TITLE_FONT)
-        label.pack(side="top", fill="x", pady=7)     
-        t = Button_Table(self, 7, 7)
-        t.pack(side="top", fill="x")
-        check = tk.Button(self, text= "CHECK", command=lambda: t.checkButton())
-        check.pack(pady = 5)
-        home = tk.Button(self, text="HOME", command=lambda: controller.show_frame(StartPage))
-        home.pack()
-        dic ={1:[0,2,"1"], 2:[0,4,"1"], 3:[0,6,"1"], 4:[1,2,"1"], 5:[1,3,"5"],
-               6:[1,4,"1"], 7:[1,5,"5"], 8:[1,6,"1"], 9:[2,0,"1"], 10:[4,0,"1"],
-               11:[6,0,"1"], 12:[2,1,"1"], 13:[3,1,"5"], 14:[4,1,"1"],
-               15:[5,1,"5"], 16:[6,1,"1"]}
-        for i in dic:
-               t.set(dic[i][0], dic[i][1], dic[i][2])
- 
-class Button_Table(tk.Frame):
-    def __init__(self, parent, rows, columns):
->>>>>>> origin/master
         # form grid lines
         tk.Frame.__init__(self, parent) 
         self._widgets = []
         for row in range(rows):
             current_row = []
             for column in range(columns):
-<<<<<<< HEAD
-                if len(label_set) < 4:
-                    if row in label_set or column in label_set :
-                        label = tk.Label(self, width=4, height=2, bg= "#ffffff")
-                        label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
-                        current_row.append(label)
-                    else:
-                        button = tk.Button(self, width=4, height=2,command=lambda a=row,b=column: self.onButtonPressed(a,b))
-                        button.grid(row=row, column=column, sticky="nsew")
-                        current_row.append(button)
-                else:
-                    if row in label_set or column in label_set :
-                        label = tk.Label(self, width=2, height=1, bg= "#ffffff")
-                        label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
-                        current_row.append(label)
-                    else:
-                        button = tk.Button(self, width=2, height=1,command=lambda a=row,b=column: self.onButtonPressed(a,b))
-                        button.grid(row=row, column=column, sticky="nsew")
-                        current_row.append(button)
-=======
-                if row == 0 or row == 1 or column == 1 or column == 0:
-                    label = tk.Label(self,width=6, height=3, bg= "#ffffff")
+                if row in label_set or column in label_set :
+                    label = tk.Label(self, width=2, height=1, bg= "#ffffff")
                     label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
                     current_row.append(label)
                 else:
-                    button = tk.Button(self, width=6, height=3,command=lambda a=row,b=column: self.onButtonPressed(a,b))
+                    button = tk.Button(self, width=2, height=1,command=lambda a=row,b=column: self.onButtonPressed(a,b))
                     button.grid(row=row, column=column, sticky="nsew")
                     current_row.append(button)
->>>>>>> origin/master
             self._widgets.append(current_row)           
+        for column in range(columns):
+            self.grid_columnconfigure(column, weight=5)
 
     def reset (self):
         '''reset button bg'''
@@ -169,7 +95,7 @@ class Button_Table(tk.Frame):
         widget.configure(text=value)
 
     def countBG (self,row, column):
-        '''count bg button is color black'''
+        '''count bg button if it is black color'''
         count = 0
         for i in range(row):
             for k in range(column):
@@ -178,7 +104,7 @@ class Button_Table(tk.Frame):
         return count
 
     def checkButton (self, dButton,row, column):
-        '''check button background is black'''
+        '''check button background if is black'''
         for i in dButton:
             if self._widgets[dButton[i][0]][dButton[i][1]]['bg']== "black"\
                and self.countBG(row, column) == len(dButton.keys()):
@@ -187,49 +113,12 @@ class Button_Table(tk.Frame):
                 checkAns = "Incorrect"
         tkMessageBox.showinfo("", checkAns)
 
-<<<<<<< HEAD
     #######################################################################
         
 class PageOne(tk.Frame):
     def __init__(self, parent, controller):
+        global row, column
         tk.Frame.__init__(self, parent)
-=======
-class PageTwo(tk.Frame):
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Puzzle 002", font=TITLE_FONT)
-        label.pack(side="top", fill="x", pady=7)     
-        t = Button_Table(self, 6, 8)
-        t.pack(side="top", fill="x")
-        check = tk.Button(self, text= "CHECK", command=lambda: t.checkButton())
-        check.pack(pady = 5)
-        home = tk.Button(self, text="HOME", command=lambda: controller.show_frame(StartPage))
-        home.pack()
-        dic ={1:[0,3,"3"], 2:[0,4,"1"], 3:[0,5,"5"], 4:[0,6,"1"], 5:[0,7,"3"],
-               6:[1,0,"1"], 7:[2,0,"1 "], 8:[3,0,"1"], 9:[4,2,"3"], 10:[5,2,"1"],
-               11:[1,1,"1"], 12:[1,2,"1"], 13:[2,1,"1"], 14:[2,2,"1"],
-               15:[3,2,"1"], 16:[3,1,"1"]}
-        for i in dic:
-               t.set(dic[i][0], dic[i][1], dic[i][2])
-        
-class Button_Table(tk.Frame):
-    def __init__(self, parent, rows, columns):
-        # form grid lines
-        tk.Frame.__init__(self, parent)
-        self._widgets = []
-        for row in range(rows):
-            current_row = []
-            for column in range(columns):
-                if row == 0 or column == 0 or column == 1 or column == 2:
-                    label = tk.Label(self,width=8, height=4, bg= "#ffffff")
-                    label.grid(row=row, column=column, sticky="nsew", padx=1, pady=1)
-                    current_row.append(label)
-                else:
-                    button = tk.Button(self, width=8, height=4,command=lambda a=row,b=column: self.onButtonPressed(a,b))
-                    button.grid(row=row, column=column, sticky="nsew")
-                    current_row.append(button)
-            self._widgets.append(current_row)           
->>>>>>> origin/master
 
         dic ={  1:[0,2,"1"], 2:[0,4,"1"], 3:[0,6,"1"], 4:[1,2,"1"],
                 5:[1,3,"5"], 6:[1,4,"1"], 7:[1,5,"5"], 8:[1,6,"1"],
@@ -241,7 +130,6 @@ class Button_Table(tk.Frame):
                    7:[3,6], 8:[4,3], 9:[4,5], 10:[5,2], 11:[5,3], 12:[5,4],
                    13:[5,5], 14:[5,6], 15:[6,3], 16:[6,5]}
 
-<<<<<<< HEAD
         label_set = [0,1]
 
         label = tk.Label(self, text="Puzzle 001", font=TITLE_FONT)
@@ -264,6 +152,7 @@ class Button_Table(tk.Frame):
 
 class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
+        global row, column
         tk.Frame.__init__(self, parent)
 
         dic ={  1:[2,3,"3"], 2:[2,4,"1"], 3:[2,5,"5"], 4:[2,6,"1"], 5:[2,7,"3"],
@@ -284,7 +173,7 @@ class PageTwo(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton, 8, 8))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -296,6 +185,7 @@ class PageTwo(tk.Frame):
 
 class Page3(tk.Frame):
     def __init__(self, parent, controller):
+        global row, column
         tk.Frame.__init__(self, parent)
 
         dic ={  1:[0,2,"2"], 2:[0,3,"2"], 3:[0,5,"2"], 4:[0,6,"2"], 5:[1,2,"1"],
@@ -316,7 +206,7 @@ class Page3(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton, 7, 7))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -328,6 +218,7 @@ class Page3(tk.Frame):
                
 class Page4(tk.Frame):
     def __init__(self, parent, controller):
+        global row, column
         tk.Frame.__init__(self, parent)
 
         dic ={  1:[0,4,"1"], 2:[0,10,"1"], 3:[1,4,"1"], 4:[1,5,"1"], 5:[1,6,"3"],
@@ -349,7 +240,7 @@ class Page4(tk.Frame):
                    40:[11,6], 41:[11,7], 42:[11,8], 43:[11,9], 44:[11,10], 45:[11,11],
                    46:[11,12], 47:[12,4], 46:[12,11]}
 
-        label_set = [0,0,1,2]
+        label_set = [0,1,2]
 
         label = tk.Label(self, text="Puzzle 004", font=TITLE_FONT)
         label.pack(side="top", fill="x", pady=13)
@@ -359,7 +250,7 @@ class Page4(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton, 13, 13))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -371,6 +262,7 @@ class Page4(tk.Frame):
                
 class Page5(tk.Frame):
     def __init__(self, parent, controller):
+        global row, column
         tk.Frame.__init__(self, parent)
 
         dic ={ 1:[0,11,"1"], 2:[1,4,"5"], 3:[1,5,"2"], 4:[1,6,"1"], 5:[1,7,"2"],
@@ -392,7 +284,7 @@ class Page5(tk.Frame):
                    46:[11,6], 47:[11,7], 46:[11,8], 47:[11,9], 48:[11,12], 49:[12,4],
                    50:[12,5], 51:[12,6], 52:[12,7], 53:[12,8], 54:[12,9], 55:[12,10], 55:[12,11]}
 
-        label_set = [0,0,1,2]
+        label_set = [0,1,2]
 
         label = tk.Label(self, text="Puzzle 005", font=TITLE_FONT)
         label.pack(side="top", fill="x", pady=13)
@@ -402,7 +294,7 @@ class Page5(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton,14,14))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -414,6 +306,7 @@ class Page5(tk.Frame):
 
 class Page6(tk.Frame):
     def __init__(self, parent, controller):
+        global row, column
         tk.Frame.__init__(self, parent)
 
         dic ={1:[0,8,"2"], 2:[1,7,"1"], 3:[1,8,"1"], 4:[2,7,"1"], 5:[2,8,"1"],
@@ -441,7 +334,7 @@ class Page6(tk.Frame):
         home = tk.Button(self, text = "HOME", width=10, height=2, command=lambda: controller.show_frame(StartPage))
         home.pack(side='left', padx = 50, pady = 10)
         
-        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton, 14, 14))
+        check = tk.Button(self, text= "CHECK", width=10, height=2, command=lambda: t.checkButton(dButton))
         check.pack(side='left', padx = 40, pady = 10)
         
         clear = tk.Button(self, text='CLEAR', width=10, height=2, command=lambda: t.reset())
@@ -450,8 +343,6 @@ class Page6(tk.Frame):
                t.set(dic[i][0], dic[i][1], dic[i][2])
 
 
-=======
->>>>>>> origin/master
 if __name__ == "__main__":
     app = GameApp()
     app.mainloop()
